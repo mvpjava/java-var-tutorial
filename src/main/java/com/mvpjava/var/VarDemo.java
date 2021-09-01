@@ -1,9 +1,14 @@
 package com.mvpjava.var;
 
 import java.io.*;
+import java.time.Duration;
 import java.util.*;
+import java.util.function.BiFunction;
+
 import jdk.jfr.Percentage;
 import org.springframework.aop.config.SimpleBeanFactoryAwareAspectInstanceFactory;
+
+import javax.validation.constraints.NotNull;
 
 public class VarDemo {
     void simplePrimitiveVarDemo(){
@@ -79,6 +84,27 @@ public class VarDemo {
         var fileOutputStream2 = new FileOutputStream(FileDescriptor.out);
 
     }
+
+    void Java11VarSupport(){
+        //formula: speed = distance / time
+
+        // Without "var" but with Type info included
+        BiFunction<Distance, Duration, Double> calculateSpeed = (Distance distance, Duration duration) -> (Speed.calculateSpeed(distance, duration));
+
+        // Without "var" and using implicit Type inference
+        BiFunction<Distance, Duration, Double> calculateSpeed2 = ( distance,  duration) -> (Speed.calculateSpeed(distance, duration));
+
+        // With "var" .Nothing to be gained here
+        BiFunction<Distance, Duration, Double> calculateSpeed3 = ( var distance,  var duration) -> (Speed.calculateSpeed(distance, duration));
+
+        // With "var" with modifiers
+        BiFunction<Distance, Duration, Double> calculateSpeed4 = (@NotNull var distance, var duration) -> (Speed.calculateSpeed(distance, duration));
+
+        // Will not compile without implicit Type declared
+        // BiFunction<Distance, Duration, Double> calculateSpeedNOCOMPILE = (@NotNull distance, duration) -> (Speed.calculateSpeed(distance, duration));
+
+    }
+
         private Percentage calculateOxygenLeftInTank() {
         return null; // not good!!! "var" can't hold a null. I guess someone is gonna die!
     }

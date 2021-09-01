@@ -20,5 +20,6 @@ public class JavaVarTutorialApplication  implements CommandLineRunner {
         varDemo.reallyBadVarExample();
         varDemo.JavaVarGoodloopExample();
         varDemo.JavaVarGoodExampleLongClassNames();
+        varDemo.Java11VarSupport();
     }
 }
